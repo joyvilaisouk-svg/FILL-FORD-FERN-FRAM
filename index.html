@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="lo">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ຮ້ານຂາຍເຄື່ອງກະເສດ - ສວນຄົວ</title>
+  <meta name="description" content="ອຸປະກອນກະເສດ ສຳລັບສວນຄົວ - ລາຄາຖືກ ຄຸນນະພາບດີ ແລະຈັດສົ່ງໄວ">
+  <style>
+    /* Basic reset */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html,body { height: 100%; }
+    body {
+      font-family: "Phetsarath OT", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: #f7f9f6;
+      color: #222;
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header {
+      background: linear-gradient(90deg,#42a700,#78b85f);
+      color: #fff;
+      padding: 18px 16px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .brand {
+      display:flex; align-items:center; gap:14px;
+    }
+    .brand h1 { font-size:20px; margin:0; }
+    nav { margin-top:10px; }
+    .nav-links { display:flex; gap:12px; flex-wrap:wrap; }
+    .nav-links a {
+      color: white; text-decoration:none; font-weight:600; padding:8px 10px; border-radius:8px;
+    }
+    .nav-links a:hover { background: rgba(255,255,255,0.06); }
+
+    /* Hero */
+    #hero {
+      background: url('assets/garden.jpg') center/cover no-repeat;
+      min-height:260px;
+      display:flex; align-items:center; justify-content:center;
+      text-align:center; color:white; padding:40px 12px;
+    }
+    #hero .overlay { background: rgba(0,0,0,0.28); padding:28px; border-radius:12px; }
+    #hero h2 { font-size:28px; margin-bottom:8px; letter-spacing:0.2px; }
+    #hero p { font-size:16px; opacity:0.95; }
+
+    /* Products */
+    #products { padding:28px 12px; }
+    #products h2 { color:#2e8d00; font-size:22px; margin-bottom:16px; text-align:center; }
+    .product-list {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      gap:18px;
+      max-width:1100px;
+      margin: 0 auto;
+    }
+    .product {
+      background:#fff; padding:14px; border-radius:12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .product:hover { transform: translateY(-6px); box-shadow: 0 12px 26px rgba(0,0,0,0.1); }
+    .product img { width:100%; border-radius:10px; height:150px; object-fit:cover; display:block; }
+    .product h3 { margin:10px 0 6px; font-size:16px; }
+    .price { font-size:18px; color:#b07200; font-weight:700; margin-top:6px; }
+    .product .actions { margin-top:10px; display:flex; gap:8px; }
+    .btn {
+      padding:8px 12px; border-radius:8px; border:0; cursor:pointer; font-weight:600;
+      background: linear-gradient(90deg,#42a700,#78b85f); color:#fff;
+    }
+    .btn.secondary { background: #eee; color: #333; font-weight:600; }
+
+    /* Floating call button */
+    .call-floating {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      background: #28a745;
+      color: white;
+      padding: 14px 20px;
+      font-size: 18px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      z-index: 999;
+    }
+    .call-floating:hover { background: #1e7e34; }
+
+    /* About / Contact */
+    section.card { padding:26px 12px; max-width:1100px; margin: 0 auto 20px; }
+    .about { background:#eaf8e9; border-radius:10px; }
+    .contact { background:#fff; border-radius:10px; box-shadow: 0 6px 14px rgba(0,0,0,0.04); }
+
+    .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap:18px; align-items:start; }
+    @media (max-width:720px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      header .nav-links { display:none; }
+    }
+
+    footer {
+      background:#2f8d00; color:white; padding:16px 12px; text-align:center; margin-top:18px;
+    }
+
+    /* small utility */
+    .muted { color:#666; font-size:14px; }
+    label { display:block; font-weight:600; margin-bottom:6px; }
+    input, textarea { width:100%; padding:10px; border-radius:8px; border:1px solid #ddd; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container" style="display:flex;flex-direction:column;gap:6px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div class="brand">
+          <img src="assets/logo.png" alt="" style="width:44px;height:44px;border-radius:8px;object-fit:cover;">
+          <h1>ຮ້ານສວນຄົວ</h1>
+        </div>
+        <div class="mobile-actions" style="display:none;"></div>
+      </div>
+
+      <nav>
+        <div class="nav-links">
+          <a href="#hero">ໜ້າຫຼັກ</a>
+          <a href="#products">ສິນຄ້າ</a>
+          <a href="#about">ກ່ຽວກັບ</a>
+          <a href="#contact">ຕິດຕໍ່</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero">
+      <div class="overlay">
+        <h2>ອຸປະກອນກະເສດ ສຳລັບສວນຄົວ</h2>
+        <p>ລາຄາຖືກ – ຄຸນນະພາບດີ – ຈັດສົ່ງໄວ</p>
+      </div>
+    </section>
+
+    <section id="products" class="card">
+      <h2>ສິນຄ້າແນະນຳ</h2>
+
+      <div class="product-list">
+        <div class="product">
+          <img src="assets/hoe.jpg" alt="ຈ່ວມຂຸດດິນ">
+          <h3>ຈ່ວມຂຸດດິນ</h3>
+          <div class="price">50,000 ກີບ</div>
+          <div class="actions">
+            <button class="btn" onclick="callBuy('ຈ່ວມຂຸດດິນ', '50,000 ກີບ')">📞 ສັ່ງຊື້</button>
+            <button class="btn secondary" onclick="share()">ສະແດງ</button>
+          </div>
+        </div>
+
+        <div class="product">
+          <img src="assets/watering.jpg" alt="ບ່ວງລາດນ້ຳ">
+          <h3>ບ່ວງລາດນ້ຳ</h3>
+          <div class="price">30,000 ກີບ</div>
+          <div class="actions">
+            <button class="btn" onclick="callBuy('ບ່ວງລາດນ້ຳ','30,000 ກີບ')">📞 ສັ່ງຊື້</button>
+            <button class="btn secondary" onclick="share()">ສະແດງ</button>
+          </div>
+        </div>
+
+        <div class="product">
+          <img src="assets/soil.jpg" alt="ດິນປຸຍ">
+          <h3>ດິນປຸຍອິນຊີ</h3>
+          <div class="price">25,000 ກີບ</div>
+          <div class="actions">
+            <button class="btn" onclick="callBuy('ດິນປຸຍອິນຊີ','25,000 ກີບ')">📞 ສັ່ງຊື້</button>
+            <button class="btn secondary" onclick="share()">ສະແດງ</button>
+          </div>
+        </div>
+
+        <div class="product">
+          <img src="assets/spray.jpg" alt="ຂວດພົ່ນ">
+          <h3>ຂວດພົ່ນນ້ຳ</h3>
+          <div class="price">20,000 ກີບ</div>
+          <div class="actions">
+            <button class="btn" onclick="callBuy('ຂວດພົ່ນນ້ຳ','20,000 ກີບ')">📞 ສັ່ງຊື້</button>
+            <button class="btn secondary" onclick="share()">ສະແດງ</button>
+          </div>
+        </div>
+
+        <div class="product">
+          <img src="assets/gloves.jpg" alt="ຖົງມື">
+          <h3>ຖົງມືກະເສດ</h3>
+          <div class="price">15,000 ກີບ</div>
+          <div class="actions">
+            <button class="btn" onclick="callBuy('ຖົງມືກະເສດ','15,000 ກີບ')">📞 ສັ່ງຊື້</button>
+            <button class="btn secondary" onclick="share()">ສະແດງ</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="about" class="card about">
+      <div class="container">
+        <h3 style="margin-bottom:10px;">ກ່ຽວກັບຮ້ານ</h3>
+        <p class="muted">ຮ້ານຂອງເຮົາຈັດຈຳຫາຍອຸປະກອນກະເສດສໍາລັບຄຸນທີ່ມີຄວາມຕ້ອງການໃນການດູແລສວນແລະຜົນໄມ້. ພວກເຮົາມຸ່ງເນັ້ນຄຸນນະພາບ ແລະ ການບໍລິການທີ່ດີ.</p>
+      </div>
+    </section>
+
+    <section id="contact" class="card contact" style="margin-bottom:26px;">
+      <div class="container">
+        <div class="grid-2">
+          <div>
+            <h3>ຕິດຕໍ່ພວກເຮົາ</h3>
+            <p class="muted">ທ່ານສາມາດຕິດຕໍ່ໂດຍໃຊ້ຟອມທີ່ຢູ່ຂ້າງລຸ່ມ ຫຼື ໂທ: <strong>+856 20 59898997</strong></p>
+            <p class="muted">ທີ່ຢູ່:ສວນ ຟີວຟອດເຟີນ ຟຣາມ ບ.ໂພນໄຊ, ເມືອງ ຫົງສາ,ແຂວງ ໄຊຍະບູລີ</p>
+          </div>
+          <div>
+            <form id="contactForm" onsubmit="sendForm(event)">
+              <label for="name">ຊື່</label>
+              <input id="name" name="name" required>
+              <label for="email">ອີເມວ</label>
+              <input id="email" name="email" type="email" required>
+              <label for="message">ຂໍ້ຄວາມ</label>
+              <textarea id="message" name="message" rows="4" required></textarea>
+              <div style="margin-top:10px;">
+                <button class="btn" type="submit">ສົ່ງຂໍ້ຄວາມ</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <div>© ຮ້ານສວນຄົວ — ທຸກສິມສິດ ປີ <span id="year"></span></div>
+    </div>
+  </footer>
+
+  <a href="tel:+8562059898997" class="call-floating" title="ໂທດ່ວນ">📞 ໂທດ່ວນ</a>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function buy(name, price) {
+      const subject = encodeURIComponent('ສັ່ງຊື້: ' + name);
+      const body = encodeURIComponent('ຂໍສັ່ງຊື້\\nລາຍການ: ' + name + '\\nລາຄາ: ' + price + '\\n\\nຊື່: \\nເບີໂທ: \\nທີ່ຢູ່: ');
+      window.location.href = 'mailto:youremail@example.com?subject=' + subject + '&body=' + body;
+    }
+
+    function callBuy(name, price) {
+      const phone = "+8562059898997"; // change to your real phone number
+      const text = `ສັ່ງຊື້: ${name}\nລາຄາ: ${price}`;
+      try { localStorage.setItem('lastOrder', JSON.stringify({name, price, time: Date.now()})); } catch(e){}
+      window.location.href = `tel:${phone}`;
+    }
+
+    function share() {
+      if (navigator.share) {
+        navigator.share({ title: 'ຮ້ານສວນຄົວ', text: 'ເບິ່ງສິນຄ້າດີໆ', url: location.href });
+      } else {
+        alert('ເບີ່ງຊ່ອງວິທີແບ່ງປັບໃນເບຣາວເຊີທັງຫມົດ');
+      }
+    }
+
+    function sendForm(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+      const subject = encodeURIComponent('ຂໍ້ຄວາມຈາກ ' + name);
+      const body = encodeURIComponent('ຈາກ: ' + name + '\\nEmail: ' + email + '\\n\\n' + message);
+      window.location.href = 'mailto:youremail@example.com?subject=' + subject + '&body=' + body;
+    }
+  </script>
+</body>
+</html>
